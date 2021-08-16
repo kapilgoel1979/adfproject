@@ -48,9 +48,9 @@
 									"physicalType": "String"
 								},
 								"sink": {
+									"name": "Name",
 									"type": "String",
-									"physicalType": "String",
-									"ordinal": 1
+									"physicalType": "String"
 								}
 							},
 							{
@@ -60,9 +60,9 @@
 									"physicalType": "String"
 								},
 								"sink": {
+									"name": "WorkLoc",
 									"type": "String",
-									"physicalType": "String",
-									"ordinal": 2
+									"physicalType": "String"
 								}
 							},
 							{
@@ -72,9 +72,9 @@
 									"physicalType": "String"
 								},
 								"sink": {
+									"name": "Designation",
 									"type": "String",
-									"physicalType": "String",
-									"ordinal": 3
+									"physicalType": "String"
 								}
 							},
 							{
@@ -84,9 +84,9 @@
 									"physicalType": "String"
 								},
 								"sink": {
+									"name": "Project",
 									"type": "String",
-									"physicalType": "String",
-									"ordinal": 4
+									"physicalType": "String"
 								}
 							}
 						],
