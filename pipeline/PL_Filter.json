@@ -13,7 +13,12 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "location",
+						"value": "Noida"
+					}
+				],
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "df_filter",
