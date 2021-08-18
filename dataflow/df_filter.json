@@ -29,7 +29,7 @@
 					"name": "Sort1"
 				}
 			],
-			"script": "source(output(\n\t\tName as string,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nSort1 filter(WorkLoc=='Bangalore') ~> Filter1\nsource1 sort(asc(Name, true)) ~> Sort1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['adfsample_filter.txt'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
+			"script": "parameters{\n\tlocation as string ($location)\n}\nsource(output(\n\t\tName as string,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nSort1 filter(WorkLoc==$location) ~> Filter1\nsource1 sort(asc(Name, true)) ~> Sort1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['adfsample_filter.txt'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
