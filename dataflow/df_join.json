@@ -1,0 +1,39 @@
+{
+	"name": "df_join",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_adfsample",
+						"type": "DatasetReference"
+					},
+					"name": "adfsample"
+				},
+				{
+					"dataset": {
+						"referenceName": "dssampleage",
+						"type": "DatasetReference"
+					},
+					"name": "dsfsampleage"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dsjoinoutput",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "InnerJoin"
+				}
+			],
+			"script": "source(output(\n\t\tName as string,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> adfsample\nsource(output(\n\t\tName as string,\n\t\tAge as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> dsfsampleage\nadfsample, dsfsampleage join(adfsample@Name == dsfsampleage@Name,\n\tjoinType:'outer',\n\tbroadcast: 'auto')~> InnerJoin\nInnerJoin sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['dsfilejoin'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tWorkLoc,\n\t\tDesignation,\n\t\tProject,\n\t\tName = dsfsampleage@Name,\n\t\tAge\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
+		}
+	}
+}
